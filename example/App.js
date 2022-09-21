@@ -9,33 +9,84 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import CarefreeSearchAmap from 'carefree-search-amap-react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import CarefreeSearchAmap from '../src';
 
 export default class App extends Component {
   state = {
-    status: 'starting',
+    address: '上海市青浦区e通世界北区',
+    location: '',
     message: '--',
+    isLoading: false,
   };
   async componentDidMount() {
     try {
-      const result = await CarefreeSearchAmap.initSDK('07976cdaf75c89e7a455f8dd3f3ec56e');
-      console.log('res', result);
-      const result2 = await CarefreeSearchAmap.getLatlong('上海市青浦区e通世界北区');
-      console.log("result2", result2)
-      const result3 = await CarefreeSearchAmap.getAddress(result2);
-      console.log("result3", result3)
-      // console.log('CarefreeSearchAmap', CarefreeSearchAmap);
+      const result = await CarefreeSearchAmap.initSDK(
+        '07976cdaf75c89e7a455f8dd3f3ec56e',
+      );
+      if (result) {
+        this.setState({
+          isLoading: result,
+        });
+        this.getInfo(this.state.address);
+      }
     } catch (err) {
-      console.log('错误信息----》', err)
+      console.log('错误信息----》', err);
     }
   }
+  async getInfo(address) {
+    const result2 = await CarefreeSearchAmap.getLatlong(address);
+    console.log('result2', result2);
+    const result3 = await CarefreeSearchAmap.getAddress(result2);
+    console.log('result3', result3);
+    this.setState({
+      location: JSON.stringify(result2),
+      message: JSON.stringify(result3),
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>☆CarefreeSearchAmap example☆</Text>
-        <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
-        <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            borderWidth: 1,
+            borderColor: '#ccc',
+            alignItems: 'center',
+          }}>
+          <TextInput
+            style={{ flex: 1 }}
+            value={this.state.address}
+            onChangeText={value => {
+              this.setState({ address: value });
+            }}
+          />
+          <TouchableOpacity
+            style={{
+              width: 45,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onPress={() => {
+              this.getInfo(this.state.address);
+            }}>
+            <Text>查询</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.instructions}>
+          {this.state.address}经纬度: {this.state.location}
+        </Text>
+        <Text style={styles.welcome}>
+          {this.state.address}经纬度转换获取地址信息
+        </Text>
         <Text style={styles.instructions}>{this.state.message}</Text>
       </View>
     );

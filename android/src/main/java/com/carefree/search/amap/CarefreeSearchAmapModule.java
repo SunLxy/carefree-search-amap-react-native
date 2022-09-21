@@ -27,12 +27,16 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
     this.reactContext = reactContext;
   }
 
+  /**
+   * 初始化sdk
+   * @param apiKey
+   */
   @ReactMethod
   public void initSDK(String apiKey, final Promise promise) {
     try {
       ServiceSettings.updatePrivacyAgree(reactContext, true);
       ServiceSettings.updatePrivacyShow(reactContext, true, true);
-      // 需要在初始化的额前面设置 key
+      // 获取实例
       ServiceSettings serviceSettings = ServiceSettings.getInstance();
       serviceSettings.setApiKey(apiKey);
       /* 初始化地址编码搜索 */
@@ -48,10 +52,23 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
     return "CarefreeSearchAmap";
   }
 
+  /**提示信息*/
+  private WritableMap getTip(int type) {
+    WritableMap map = Arguments.createMap();
+    if (type == -1) {
+      map.putDouble("errCode", -1);
+      map.putString("errInfo", "没有搜索到相关数据");
+    }
+    if (type == -2) {
+      map.putDouble("errCode", -2);
+      map.putString("errInfo", "搜索失败,请检查网络连接");
+    }
+    return map;
+  }
+
   /**
-   * 响应地理编码
-   *
-   * @param name
+   * 地址转换经纬度
+   * @param address
    */
   @ReactMethod
   public void getLatlong(String address, final Promise promise) {
@@ -94,25 +111,29 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 );
                 promise.resolve(map);
               } else {
+                WritableMap tips = getTip(-1);
                 // ToastUtil.show(mContext, "对不起，没有搜索到相关数据！");
-                promise.reject("-1", "没有搜索到相关数据");
+                promise.reject("-1", tips);
               }
             } else {
-              promise.reject("-2", "搜索失败,请检查网络连接");
+              WritableMap tips = getTip(-2);
+              promise.reject("-2", tips);
               //   ToastUtil.show(mContext, "搜索失败,请检查网络连接！");
             }
           }
         }
       );
     } catch (Exception err) {
-      promise.reject("-3", err.getMessage());
+      WritableMap tips = getTip(-3);
+      tips.putString("errInfo", err.getMessage());
+      tips.putDouble("errCode", -3);
+      promise.reject("-3", tips);
     }
   }
 
   /**
-   * 响应逆地理编码
-   *
-   * @param latLonPoint
+   * 经纬度转换地址
+   * @param point
    */
   @ReactMethod
   public void getAddress(ReadableMap point, final Promise promise) {
@@ -171,10 +192,12 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 map.putString("township", location.getTownship());
                 promise.resolve(map);
               } else {
-                promise.reject("-1", "没有搜索到相关数据");
+                WritableMap tips = getTip(-1);
+                promise.reject("-1", tips);
               }
             } else {
-              promise.reject("-2", "搜索失败,请检查网络连接");
+              WritableMap tips = getTip(-2);
+              promise.reject("-2", tips);
             }
           }
 
@@ -186,7 +209,10 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
         }
       );
     } catch (Exception err) {
-      promise.reject("-3", err.getMessage());
+      WritableMap tips = getTip(-3);
+      tips.putString("errInfo", err.getMessage());
+      tips.putDouble("errCode", -3);
+      promise.reject("-3", tips);
     }
   }
 }

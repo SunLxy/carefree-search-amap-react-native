@@ -2,17 +2,20 @@
   "name": "carefree-search-amap-react-native",
   "title": "Carefree Search Amap React Native",
   "version": "1.0.0",
-  "description": "TODO",
-  "main": "index.js",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "react-native": "lib/index.js",
   "files": [
     "README.md",
     "android",
-    "index.js",
+    "src",
+    "lib",
     "ios",
     "carefree-search-amap-react-native.podspec"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsbb build"
   },
   "repository": {
     "type": "git",
@@ -35,6 +38,8 @@
   },
   "devDependencies": {
     "react": "^16.9.0",
-    "react-native": "^0.61.5"
+    "react-native": "^0.61.5",
+    "@types/react-native": "^0.61.5",
+    "tsbb": "^3.7.7"
   }
 }
