@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
+  "module": "esm/index.js",
   "types": "lib/index.d.ts",
   "react-native": "lib/index.js",
   "files": [
