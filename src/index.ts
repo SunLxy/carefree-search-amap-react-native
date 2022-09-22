@@ -9,6 +9,7 @@ const eventEmitter = new NativeEventEmitter(NativeModules.CarefreeSearchAmap)
 export const getLatLong = (address: string): Promise<Point> => {
   if (Platform.OS === 'ios') {
     return new Promise((resolve, reject) => {
+      NativeModules.CarefreeSearchAmap.getLatLong(address)
       eventEmitter.addListener('GetLatLong', (info) => {
         if (!info.errCode) {
           resolve(info)
@@ -28,6 +29,7 @@ export const getLatLong = (address: string): Promise<Point> => {
 export const getAddress = (point: Point): Promise<Address> => {
   if (Platform.OS === 'ios') {
     return new Promise((resolve, reject) => {
+      NativeModules.CarefreeSearchAmap.getAddress(point)
       eventEmitter.addListener('GetAddress', (info) => {
         if (!info.errCode) {
           resolve(info)
