@@ -9,7 +9,9 @@
   "react-native": "lib/index.js",
   "files": [
     "README.md",
-    "android",
+    "android/src",
+    "android/build.gradle",
+    "android/README.md",
     "src",
     "lib",
     "ios",
