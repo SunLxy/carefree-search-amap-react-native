@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "names": [],
+  "sources": [
+    "../src/interface.ts"
+  ],
+  "sourcesContent": [
+    "export interface Point {\n  /**纬度*/\n  latitude: number\n  /**经度*/\n  longitude: number\n}\n\nexport interface Address {\n  /**区（县）的编码*/\n  adCode: string\n  /**建筑物名称*/\n  building: string\n  /**城市名称*/\n  city: string\n  /**城市编码*/\n  cityCode: string\n  /**国家名称*/\n  country: string\n  /**区（县）名称*/\n  district: string\n  /**地址*/\n  address: string\n  /**社区名称*/\n  neighborhood: string\n  /**省名称、直辖市的名称 */\n  province: string\n  /**乡镇街道编码*/\n  towncode: string\n  /**乡镇名称*/\n  township: string\n  /**门牌号码*/\n  streetNumber?: string\n  /**门牌信息中的街道名称*/\n  street?: string\n}\n"
+  ],
+  "mappings": ""
+}
