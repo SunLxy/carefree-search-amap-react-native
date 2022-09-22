@@ -9,7 +9,7 @@ module.exports = {
       {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {
-          [pak.name]: path.join(__dirname, '..', 'index'),
+          [pak.name]: path.join(__dirname, '..', 'lib/index'),
         },
       },
     ],
