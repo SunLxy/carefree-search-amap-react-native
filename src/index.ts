@@ -1,20 +1,45 @@
-import { NativeModules } from 'react-native'
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native'
 import { Point, Address } from './interface'
 export * from './interface'
 const { CarefreeSearchAmap } = NativeModules
+const eventEmitter = new NativeEventEmitter(NativeModules.RNAMapGeolocation)
 
 /**
  * 地址转经纬度
  */
 export const getLatLong = (address: string): Promise<Point> => {
-  return CarefreeSearchAmap.getLatLong(address)
+  if (Platform.OS === 'ios') {
+    return new Promise((resolve, reject) => {
+      eventEmitter.addListener('GetLatLong', (info) => {
+        if (!info.errCode) {
+          resolve(info)
+        } else {
+          reject(info)
+        }
+      })
+    })
+  } else {
+    return CarefreeSearchAmap.getLatLong(address)
+  }
 }
 
 /**
  * 经纬度转地址
  */
 export const getAddress = (point: Point): Promise<Address> => {
-  return CarefreeSearchAmap.getAddress(point)
+  if (Platform.OS === 'ios') {
+    return new Promise((resolve, reject) => {
+      eventEmitter.addListener('GetAddress', (info) => {
+        if (!info.errCode) {
+          resolve(info)
+        } else {
+          reject(info)
+        }
+      })
+    })
+  } else {
+    return CarefreeSearchAmap.getAddress(point)
+  }
 }
 
 /**
