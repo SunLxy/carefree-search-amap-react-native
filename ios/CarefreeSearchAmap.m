@@ -5,7 +5,7 @@
 
 @implementation CarefreeSearchAmap{
   BOOL _isStarted;
-  AMapSearchAPI *_search
+  AMapSearchAPI *_search;
 }
 
 RCT_EXPORT_MODULE()
@@ -59,8 +59,8 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
     }else{
         AMapGeocode *locationItem = (AMapGeocode *)response.geocodes[0];
         [self sendEventWithName: @"GetLatLong" body:@{
-            @"longitude" : locationItem.location.longitude,
-            @"latitude" : locationItem.location.latitude,
+            @"longitude" : @(locationItem.location.longitude),
+            @"latitude" : @(locationItem.location.latitude),
         }];
     }
 }
@@ -78,23 +78,21 @@ RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
 /* 逆地理编码回调. */
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
     if (response.regeocode != nil) {
-        AMapReGeocode locationItem = response.regeocode;
-        AMapAddressComponent addressInfo = locationItem.addressComponent;
-        AMapStreetNumber streetNumber = addressInfo.streetNumber;
+        AMapReGeocode *locationItem = response.regeocode;
         [self sendEventWithName: @"GetAddress" body:@{
-            @"adCode" : @(addressInfo.adCode),
-            @"building" : @(addressInfo.building),
-            @"city" : @(addressInfo.city),
-            @"cityCode" : @(addressInfo.citycode),
-            @"country" : @(addressInfo.country),
-            @"district" : @(addressInfo.district),
-            @"address" : @(locationItem.formattedAddress),
-            @"neighborhood" : @(addressInfo.neighborhood),
-            @"province": @(addressInfo.province),
-            @"streetNumber" : streetNumber ? streetNumber.number:@"",
-            @"street" : streetNumber ? streetNumber.street:@"",
-            @"towncode" : addressInfo.towncode,
-            @"township" : addressInfo.township,
+            @"adCode" : locationItem.addressComponent.adcode,
+            @"building" : locationItem.addressComponent.building,
+            @"city" : locationItem.addressComponent.city,
+            @"cityCode" : locationItem.addressComponent.citycode,
+            @"country" : locationItem.addressComponent.country,
+            @"district" : locationItem.addressComponent.district,
+            @"address" : locationItem.formattedAddress,
+            @"neighborhood" :locationItem.addressComponent.neighborhood,
+            @"province": locationItem.addressComponent.province,
+            @"streetNumber" : locationItem.addressComponent.streetNumber ,
+            @"street" : locationItem.addressComponent.streetNumber ,
+            @"towncode" : locationItem.addressComponent.towncode,
+            @"township" : locationItem.addressComponent.township,
         }];
     }else{
         [self sendEventWithName: @"GetAddress" body:@{

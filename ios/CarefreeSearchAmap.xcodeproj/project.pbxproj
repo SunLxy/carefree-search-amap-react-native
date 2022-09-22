@@ -167,6 +167,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -218,6 +219,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -235,6 +237,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CarefreeSearchAmap;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -251,6 +254,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CarefreeSearchAmap;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
