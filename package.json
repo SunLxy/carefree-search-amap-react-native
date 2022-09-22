@@ -1,7 +1,7 @@
 {
   "name": "carefree-search-amap-react-native",
   "title": "Carefree Search Amap React Native",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "TDOO",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
