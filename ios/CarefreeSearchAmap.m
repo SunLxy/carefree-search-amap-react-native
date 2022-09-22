@@ -5,7 +5,7 @@
 
 @implementation CarefreeSearchAmap{
   BOOL _isStarted;
-  AMapSearchAPI *search
+  AMapSearchAPI *_search
 }
 
 RCT_EXPORT_MODULE()
@@ -23,8 +23,8 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)
 ) {
     @try{
         [AMapServices sharedServices].apiKey = apiKey;
-        search = [[AMapSearchAPI alloc] init];
-        search.delegate = self;
+        _search = [[AMapSearchAPI alloc] init];
+        _search.delegate = self;
         _isStarted = YES;
         resolve(@(_isStarted));
     } @catch (NSException *error){
@@ -46,7 +46,7 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 {
     AMapGeocodeSearchRequest *geo = [[AMapGeocodeSearchRequest alloc] init];
     geo.address = address;
-    [self.search AMapGeocodeSearch:geo];
+    [_search AMapGeocodeSearch:geo];
 }
 
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response{
@@ -72,7 +72,7 @@ RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
     AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
     regeo.location = [AMapGeoPoint locationWithLatitude:point.latitude
                                               longitude:point.longitude];
-    [self.search AMapReGoecodeSearch:regeo];
+    [_search AMapReGoecodeSearch:regeo];
 }
 
 /* 逆地理编码回调. */
