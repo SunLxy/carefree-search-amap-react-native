@@ -10,6 +10,10 @@
 
 RCT_EXPORT_MODULE()
 
++ (NSString *)storeKey {
+    return @"CarefreeSearchAmap";
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
