@@ -2,7 +2,6 @@
 
 package com.carefree.search.amap;
 
-import com.amap.api.location.AMapLocationClient;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.ServiceSettings;
 import com.amap.api.services.geocoder.*;
@@ -71,7 +70,7 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
    * @param address
    */
   @ReactMethod
-  public void getLatlong(String address, final Promise promise) {
+  public void getLatLong(String address, final Promise promise) {
     try {
       // 第一个参数表示地址，第二个参数表示查询城市010，中文或者中文全拼，citycode、adcode
       GeocodeQuery query = new GeocodeQuery(address.trim(), "");
@@ -173,7 +172,6 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 map.putString("city", location.getCity());
                 map.putString("cityCode", location.getCityCode());
                 map.putString("country", location.getCountry());
-                map.putString("district", location.getDistrict());
                 map.putString("district", location.getDistrict());
                 map.putString("address", location.getFormatAddress());
                 map.putString("neighborhood", location.getNeighborhood());
