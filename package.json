@@ -6,6 +6,7 @@
   "main": "lib/index.js",
   "module": "esm/index.js",
   "types": "lib/index.d.ts",
+  "react-native": "lib/index",
   "files": [
     "README.md",
     "android/src",

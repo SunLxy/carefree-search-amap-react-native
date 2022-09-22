@@ -16,7 +16,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import CarefreeSearchAmap from '../src';
+import CarefreeSearchAmap from 'carefree-search-amap-react-native';
 
 export default class App extends Component {
   state = {
