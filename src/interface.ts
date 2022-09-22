@@ -1,5 +1,7 @@
 export interface Point {
+  /**纬度*/
   latitude: number
+  /**经度*/
   longitude: number
 }
 
