@@ -2,7 +2,7 @@ import { NativeModules, NativeEventEmitter, Platform } from 'react-native'
 import { Point, Address } from './interface'
 export * from './interface'
 const { CarefreeSearchAmap } = NativeModules
-const eventEmitter = new NativeEventEmitter(NativeModules.RNAMapGeolocation)
+const eventEmitter = new NativeEventEmitter(CarefreeSearchAmap)
 
 /**
  * 地址转经纬度
