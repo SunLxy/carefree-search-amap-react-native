@@ -74,11 +74,12 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 }
 
 
-RCT_EXPORT_METHOD(getAddress: (CGFloat *)latitude (CGFloat *)longitude)
+RCT_EXPORT_METHOD(getAddress:(float)latitude typer:(float)longitude)
 {
-     NSLog( @"getAddress-->" );
+     NSLog( @"getAddress-->");
     AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
     regeo.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
+    regeo.radius = 10;
     [_search AMapReGoecodeSearch:regeo];
 }
 
