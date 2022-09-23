@@ -90,6 +90,7 @@ RCT_EXPORT_METHOD(getAddress:(float)latitude typer:(float)longitude)
     if (response.regeocode != nil) {
         AMapReGeocode *locationItem = response.regeocode;
         [self sendEventWithName: @"GetAddress" body:@{
+            @"errCode" : @(1000),
             @"adCode" : locationItem.addressComponent.adcode,
             @"building" : locationItem.addressComponent.building,
             @"city" : locationItem.addressComponent.city,
