@@ -106,5 +106,13 @@ RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
     }
 }
 
+/*! 
+ * [warn][tid:main][RCTModuleData.mm:68] Module Alipay requires main queue setup since it overrides `init` but doesn't implement `requiresMainQueueSetup`. 
+ * In a future release React Native will default to initializing all native modules on a background thread unless explicitly opted-out of.
+ */;
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
 
 @end

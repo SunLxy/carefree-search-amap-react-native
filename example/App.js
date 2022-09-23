@@ -16,7 +16,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import CarefreeSearchAmap from 'carefree-search-amap-react-native';
+import CarefreeSearchAmap, { initSDK } from 'carefree-search-amap-react-native';
 
 export default class App extends Component {
   state = {
@@ -27,7 +27,8 @@ export default class App extends Component {
   };
   async componentDidMount() {
     try {
-      const result = await CarefreeSearchAmap.initSDK(
+      console.log("222")
+      const result = await initSDK(
         // '07976cdaf75c89e7a455f8dd3f3ec56e',
         '7847002b4f7fa42578df07d8cf9b0e41',
       );
@@ -42,14 +43,14 @@ export default class App extends Component {
     }
   }
   async getInfo(address) {
-    const result2 = await CarefreeSearchAmap.getLatlong(address);
-    console.log('result2', result2);
-    const result3 = await CarefreeSearchAmap.getAddress(result2);
-    console.log('result3', result3);
-    this.setState({
-      location: JSON.stringify(result2),
-      message: JSON.stringify(result3),
-    });
+    // const result2 = await getLatLong(address);
+    // console.log('result2', result2);
+    // const result3 = await getAddress(result2);
+    // console.log('result3', result3);
+    // this.setState({
+    //   location: JSON.stringify(result2),
+    //   message: JSON.stringify(result3),
+    // });
   }
 
   render() {
