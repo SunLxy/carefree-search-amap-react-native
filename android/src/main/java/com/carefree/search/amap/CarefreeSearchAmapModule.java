@@ -62,6 +62,10 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
       map.putDouble("errCode", -2);
       map.putString("errInfo", "搜索失败,请检查网络连接");
     }
+    if (type == -4) {
+      map.putDouble("errCode", -4);
+      map.putString("errInfo", "未设置apiKey,请先设置apiKey");
+    }
     return map;
   }
 
@@ -71,6 +75,10 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
    */
   @ReactMethod
   public void getLatLong(String address, final Promise promise) {
+    if (mGeocodeSearch == null) {
+      promise.resolve(getTip(-4));
+      return;
+    }
     try {
       // 第一个参数表示地址，第二个参数表示查询城市010，中文或者中文全拼，citycode、adcode
       GeocodeQuery query = new GeocodeQuery(address, "");
@@ -108,17 +116,17 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                   "longitude",
                   destPoint.getLatLonPoint().getLongitude()
                 );
-                map.putDouble("rCode", rCode);
+                map.putDouble("errCode", rCode);
                 promise.resolve(map);
               } else {
                 WritableMap tips = getTip(-1);
-                tips.putDouble("rCode", rCode);
+                tips.putDouble("errCode", rCode);
                 // ToastUtil.show(mContext, "对不起，没有搜索到相关数据！");
                 promise.resolve(tips);
               }
             } else {
               WritableMap tips = getTip(-2);
-              tips.putDouble("rCode", rCode);
+              tips.putDouble("errCode", rCode);
               promise.resolve(tips);
               //   ToastUtil.show(mContext, "搜索失败,请检查网络连接！");
             }
@@ -139,6 +147,10 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
    */
   @ReactMethod
   public void getAddress(ReadableMap point, final Promise promise) {
+    if (mGeocodeSearch == null) {
+      promise.resolve(getTip(-4));
+      return;
+    }
     try {
       LatLonPoint latLonPoint = new LatLonPoint(
         point.getDouble("latitude"),
@@ -191,17 +203,17 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 }
                 map.putString("towncode", location.getTowncode());
                 map.putString("township", location.getTownship());
-                map.putDouble("rCode", rCode);
+                map.putDouble("errCode", rCode);
 
                 promise.resolve(map);
               } else {
                 WritableMap tips = getTip(-1);
-                tips.putDouble("rCode", rCode);
+                tips.putDouble("errCode", rCode);
                 promise.resolve(tips);
               }
             } else {
               WritableMap tips = getTip(-2);
-              tips.putDouble("rCode", rCode);
+              tips.putDouble("errCode", rCode);
               promise.resolve(tips);
             }
           }

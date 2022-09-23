@@ -2,5 +2,25 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.carefree.search.amap">
+<!--允许访问网络，必选权限-->
+<uses-permission android:name="android.permission.INTERNET" />
+
+<!--允许读设备等信息，用于问题排查-->
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+<!--允许获取网络状态-->
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!--允许获取wifi网络信息-->
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+<!--允许写入扩展存储，用于搜索结果缓存，若无此权限则写到私有目录-->
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+<!--允许写设备缓存，用于问题排查-->
+<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+<!--允许读设备等信息，用于问题排查-->
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

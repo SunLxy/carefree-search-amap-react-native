@@ -49,11 +49,19 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)
 }
 
 RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
-{
-     NSLog( @"getLatLong-->" );
-    AMapGeocodeSearchRequest *geo = [[AMapGeocodeSearchRequest alloc] init];
-    geo.address = address;
-    [_search AMapGeocodeSearch:geo];
+{   
+    if (_search != nil) {
+        NSLog( @"getLatLong-->" );
+        AMapGeocodeSearchRequest *geo = [[AMapGeocodeSearchRequest alloc] init];
+        geo.address = address;
+        [_search AMapGeocodeSearch:geo];
+    }else{
+        [self sendEventWithName: @"AddressOrLatLongError" body:@{
+            @"errCode" : @(-4),
+            @"errInfo" : @"未设置apiKey,请先设置apiKey",
+        }];
+    }
+   
 }
 
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response{
@@ -77,11 +85,19 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 
 RCT_EXPORT_METHOD(getAddress:(float)latitude typer:(float)longitude)
 {
-     NSLog( @"getAddress-->");
-    AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
-    regeo.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
-    regeo.radius = 10;
-    [_search AMapReGoecodeSearch:regeo];
+    
+    if (_search != nil) {
+        NSLog( @"getAddress-->");
+        AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
+        regeo.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
+        regeo.radius = 10;
+        [_search AMapReGoecodeSearch:regeo]
+    }else{
+        [self sendEventWithName: @"AddressOrLatLongError" body:@{
+            @"errCode" : @(-4),
+            @"errInfo" : @"未设置apiKey,请先设置apiKey",
+        }];
+    }
 }
 
 /* 逆地理编码回调. */
