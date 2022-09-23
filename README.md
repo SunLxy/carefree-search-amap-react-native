@@ -1,6 +1,6 @@
 # carefree-search-amap-react-native
 
-React Native 高德地图搜索模块，支持 Android/iOS。进行地址和经纬度进行互转
+React Native 高德地图搜索模块，支持 Android/iOS。进行地址和经纬度互转
 ### Install
 
 ```bash
