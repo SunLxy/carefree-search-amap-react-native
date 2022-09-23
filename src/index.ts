@@ -1,6 +1,7 @@
 import { NativeModules, NativeEventEmitter, Platform } from 'react-native'
 import { Point, Address } from './interface'
 export * from './interface'
+const { CarefreeSearchAmap } = NativeModules
 const eventEmitter = new NativeEventEmitter(NativeModules.CarefreeSearchAmap)
 
 /**
@@ -9,7 +10,7 @@ const eventEmitter = new NativeEventEmitter(NativeModules.CarefreeSearchAmap)
 export const getLatLong = (address: string): Promise<Point> => {
   if (Platform.OS === 'ios') {
     return new Promise((resolve, reject) => {
-      NativeModules.CarefreeSearchAmap.getLatLong(address)
+      CarefreeSearchAmap.getLatLong(address)
       eventEmitter.addListener('GetLatLong', (info) => {
         if (!info.errCode) {
           resolve(info)
@@ -19,7 +20,7 @@ export const getLatLong = (address: string): Promise<Point> => {
       })
     })
   } else {
-    return NativeModules.CarefreeSearchAmap.getLatLong(address)
+    return CarefreeSearchAmap.getLatLong(address)
   }
 }
 
@@ -29,7 +30,7 @@ export const getLatLong = (address: string): Promise<Point> => {
 export const getAddress = (point: Point): Promise<Address> => {
   if (Platform.OS === 'ios') {
     return new Promise((resolve, reject) => {
-      NativeModules.CarefreeSearchAmap.getAddress(point)
+      CarefreeSearchAmap.getAddress(point)
       eventEmitter.addListener('GetAddress', (info) => {
         if (!info.errCode) {
           resolve(info)
@@ -39,7 +40,7 @@ export const getAddress = (point: Point): Promise<Address> => {
       })
     })
   } else {
-    return NativeModules.CarefreeSearchAmap.getAddress(point)
+    return CarefreeSearchAmap.getAddress(point)
   }
 }
 
@@ -47,7 +48,7 @@ export const getAddress = (point: Point): Promise<Address> => {
  * 设置apiKey
  */
 export const initSDK = (apiKey: string): Promise<boolean | string> => {
-  return NativeModules.CarefreeSearchAmap.initSDK(apiKey)
+  return CarefreeSearchAmap.initSDK(apiKey)
 }
 
-export default NativeModules.CarefreeSearchAmap
+export default CarefreeSearchAmap

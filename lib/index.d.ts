@@ -1,5 +1,6 @@
 import { Point, Address } from './interface';
 export * from './interface';
+declare const CarefreeSearchAmap: any;
 /**
  * 地址转经纬度
  */
@@ -12,5 +13,4 @@ export declare const getAddress: (point: Point) => Promise<Address>;
  * 设置apiKey
  */
 export declare const initSDK: (apiKey: string) => Promise<boolean | string>;
-declare const _default: any;
-export default _default;
+export default CarefreeSearchAmap;

@@ -28,7 +28,7 @@ export default class App extends Component {
   async componentDidMount() {
     try {
       console.log("222")
-      const result = await initSDK(
+      const result = await CarefreeSearchAmap.initSDK(
         // '07976cdaf75c89e7a455f8dd3f3ec56e',
         '7847002b4f7fa42578df07d8cf9b0e41',
       );

@@ -26,14 +26,14 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject
 ) {
     @try{
+        NSLog( @"initSDK-->" );
         [AMapServices sharedServices].apiKey = apiKey;
         _search = [[AMapSearchAPI alloc] init];
         _search.delegate = self;
         _isStarted = YES;
         resolve(@(_isStarted));
     } @catch (NSException *error){
-        // Print exception information
-        NSLog( @"NSException caught" );
+        NSLog( @"initSDK-->" );
         NSLog( @"Name: %@", error.name);
         NSLog( @"Reason: %@", error.reason );
         reject([NSString stringWithFormat:@"%ld",(long)error.name], error.reason, error);
@@ -45,15 +45,16 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)
   return @[ @"GetLatLong",@"GetAddress" ];
 }
 
-
 RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 {
+     NSLog( @"getLatLong-->" );
     AMapGeocodeSearchRequest *geo = [[AMapGeocodeSearchRequest alloc] init];
     geo.address = address;
     [_search AMapGeocodeSearch:geo];
 }
 
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response{
+     NSLog( @"onGeocodeSearchDone-->" );
     if (response.count == 0) {
         [self sendEventWithName: @"GetLatLong" body:@{
             @"errCode" : @(-1),
@@ -72,7 +73,7 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 
 RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
 {
-    
+     NSLog( @"getAddress-->" );
     AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
     regeo.location = [AMapGeoPoint locationWithLatitude:point.latitude
                                               longitude:point.longitude];
@@ -81,6 +82,7 @@ RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
 
 /* 逆地理编码回调. */
 - (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
+     NSLog( @"onReGeocodeSearchDone-->" );
     if (response.regeocode != nil) {
         AMapReGeocode *locationItem = response.regeocode;
         [self sendEventWithName: @"GetAddress" body:@{
