@@ -1,5 +1,3 @@
-import { Point, Address } from './interface'
-export * from './interface'
 export interface Point {
   /**纬度*/
   latitude: number
