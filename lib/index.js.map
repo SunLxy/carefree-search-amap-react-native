@@ -1,30 +1,32 @@
 {
   "version": 3,
   "names": [
-    "CarefreeSearchAmap",
-    "NativeModules",
     "eventEmitter",
     "NativeEventEmitter",
-    "getLatLong",
-    "address",
+    "NativeModules",
+    "CarefreeSearchAmap",
+    "apiKey",
+    "initSDK",
+    "point",
     "Platform",
     "OS",
     "Promise",
     "resolve",
     "reject",
+    "getAddress",
+    "latitude",
+    "longitude",
     "addListener",
     "info",
     "errCode",
-    "getAddress",
-    "point",
-    "initSDK",
-    "apiKey"
+    "address",
+    "getLatLong"
   ],
   "sources": [
     "../src/index.ts"
   ],
   "sourcesContent": [
-    "import { NativeModules, NativeEventEmitter, Platform } from 'react-native'\nimport { Point, Address } from './interface'\nexport * from './interface'\nconst { CarefreeSearchAmap } = NativeModules\nconst eventEmitter = new NativeEventEmitter(NativeModules.CarefreeSearchAmap)\n\n/**\n * 地址转经纬度\n */\nexport const getLatLong = (address: string): Promise<Point> => {\n  if (Platform.OS === 'ios') {\n    return new Promise((resolve, reject) => {\n      CarefreeSearchAmap.getLatLong(address)\n      eventEmitter.addListener('GetLatLong', (info) => {\n        if (!info.errCode) {\n          resolve(info)\n        } else {\n          reject(info)\n        }\n      })\n    })\n  } else {\n    return CarefreeSearchAmap.getLatLong(address)\n  }\n}\n\n/**\n * 经纬度转地址\n */\nexport const getAddress = (point: Point): Promise<Address> => {\n  if (Platform.OS === 'ios') {\n    return new Promise((resolve, reject) => {\n      CarefreeSearchAmap.getAddress(point)\n      eventEmitter.addListener('GetAddress', (info) => {\n        if (!info.errCode) {\n          resolve(info)\n        } else {\n          reject(info)\n        }\n      })\n    })\n  } else {\n    return CarefreeSearchAmap.getAddress(point)\n  }\n}\n\n/**\n * 设置apiKey\n */\nexport const initSDK = (apiKey: string): Promise<boolean | string> => {\n  return CarefreeSearchAmap.initSDK(apiKey)\n}\n\nexport default CarefreeSearchAmap\n"
+    "import { NativeModules, NativeEventEmitter, Platform } from 'react-native'\nimport { Point, Address } from './interface'\nexport * from './interface'\n\nconst eventEmitter = new NativeEventEmitter(NativeModules.CarefreeSearchAmap)\n\nclass CarefreeSearchAmap {\n  /**\n   * 设置apiKey\n   */\n  static initSDK = (apiKey: string): Promise<boolean | string> => {\n    return NativeModules.CarefreeSearchAmap.initSDK(apiKey)\n  }\n  /**\n   * 经纬度转地址\n   */\n  static getAddress = (point: Point): Promise<Address> => {\n    if (Platform.OS === 'ios') {\n      return new Promise((resolve, reject) => {\n        NativeModules.CarefreeSearchAmap.getAddress(\n          point.latitude,\n          point.longitude,\n        )\n        eventEmitter.addListener('GetAddress', (info) => {\n          if (!info.errCode) {\n            resolve(info)\n          } else {\n            reject(info)\n          }\n        })\n        eventEmitter.addListener('AddressOrLatLongError', (info) => {\n          reject(info)\n        })\n      })\n    } else {\n      return NativeModules.CarefreeSearchAmap.getAddress(point)\n    }\n  }\n  /**\n   * 地址转经纬度\n   */\n  static getLatLong = (address: string): Promise<Point> => {\n    if (Platform.OS === 'ios') {\n      return new Promise((resolve, reject) => {\n        NativeModules.CarefreeSearchAmap.getLatLong(address)\n        eventEmitter.addListener('GetLatLong', (info) => {\n          if (!info.errCode) {\n            resolve(info)\n          } else {\n            reject(info)\n          }\n        })\n        eventEmitter.addListener('AddressOrLatLongError', (info) => {\n          reject(info)\n        })\n      })\n    } else {\n      return NativeModules.CarefreeSearchAmap.getLatLong(address)\n    }\n  }\n}\n\nexport default CarefreeSearchAmap\n"
   ],
-  "mappings": ";;;;;;;;;;;;AAAA;;AAEA;;AAAA;EAAA;EAAA;EAAA;EAAA;IAAA;IAAA;MAAA;IAAA;EAAA;AAAA;AACA,IAAQA,kBAAR,GAA+BC,0BAA/B,CAAQD,kBAAR;AACA,IAAME,YAAY,GAAG,IAAIC,+BAAJ,CAAuBF,0BAAA,CAAcD,kBAArC,CAArB;AAEA;AACA;AACA;;AACO,IAAMI,UAAU,GAAG,SAAbA,UAAa,CAACC,OAAD,EAAqC;EAC7D,IAAIC,qBAAA,CAASC,EAAT,KAAgB,KAApB,EAA2B;IACzB,OAAO,IAAIC,OAAJ,CAAY,UAACC,OAAD,EAAUC,MAAV,EAAqB;MACtCV,kBAAkB,CAACI,UAAnB,CAA8BC,OAA9B;MACAH,YAAY,CAACS,WAAb,CAAyB,YAAzB,EAAuC,UAACC,IAAD,EAAU;QAC/C,IAAI,CAACA,IAAI,CAACC,OAAV,EAAmB;UACjBJ,OAAO,CAACG,IAAD,CAAP;QACD,CAFD,MAEO;UACLF,MAAM,CAACE,IAAD,CAAN;QACD;MACF,CAND;IAOD,CATM,CAAP;EAUD,CAXD,MAWO;IACL,OAAOZ,kBAAkB,CAACI,UAAnB,CAA8BC,OAA9B,CAAP;EACD;AACF,CAfM;AAiBP;AACA;AACA;;;;;AACO,IAAMS,UAAU,GAAG,SAAbA,UAAa,CAACC,KAAD,EAAoC;EAC5D,IAAIT,qBAAA,CAASC,EAAT,KAAgB,KAApB,EAA2B;IACzB,OAAO,IAAIC,OAAJ,CAAY,UAACC,OAAD,EAAUC,MAAV,EAAqB;MACtCV,kBAAkB,CAACc,UAAnB,CAA8BC,KAA9B;MACAb,YAAY,CAACS,WAAb,CAAyB,YAAzB,EAAuC,UAACC,IAAD,EAAU;QAC/C,IAAI,CAACA,IAAI,CAACC,OAAV,EAAmB;UACjBJ,OAAO,CAACG,IAAD,CAAP;QACD,CAFD,MAEO;UACLF,MAAM,CAACE,IAAD,CAAN;QACD;MACF,CAND;IAOD,CATM,CAAP;EAUD,CAXD,MAWO;IACL,OAAOZ,kBAAkB,CAACc,UAAnB,CAA8BC,KAA9B,CAAP;EACD;AACF,CAfM;AAiBP;AACA;AACA;;;;;AACO,IAAMC,OAAO,GAAG,SAAVA,OAAU,CAACC,MAAD,EAA+C;EACpE,OAAOjB,kBAAkB,CAACgB,OAAnB,CAA2BC,MAA3B,CAAP;AACD,CAFM;;;eAIQjB,kB"
+  "mappings": ";;;;;;;;;;;;;;;;AAAA;;AAEA;;AAAA;EAAA;EAAA;EAAA;EAAA;IAAA;IAAA;MAAA;IAAA;EAAA;AAAA;AAEA,IAAMA,YAAY,GAAG,IAAIC,+BAAJ,CAAuBC,0BAAA,CAAcC,kBAArC,CAArB;IAEMA,kB;;;iCAAAA,kB,aAIa,UAACC,MAAD,EAA+C;EAC9D,OAAOF,0BAAA,CAAcC,kBAAd,CAAiCE,OAAjC,CAAyCD,MAAzC,CAAP;AACD,C;iCANGD,kB,gBAUgB,UAACG,KAAD,EAAoC;EACtD,IAAIC,qBAAA,CAASC,EAAT,KAAgB,KAApB,EAA2B;IACzB,OAAO,IAAIC,OAAJ,CAAY,UAACC,OAAD,EAAUC,MAAV,EAAqB;MACtCT,0BAAA,CAAcC,kBAAd,CAAiCS,UAAjC,CACEN,KAAK,CAACO,QADR,EAEEP,KAAK,CAACQ,SAFR;;MAIAd,YAAY,CAACe,WAAb,CAAyB,YAAzB,EAAuC,UAACC,IAAD,EAAU;QAC/C,IAAI,CAACA,IAAI,CAACC,OAAV,EAAmB;UACjBP,OAAO,CAACM,IAAD,CAAP;QACD,CAFD,MAEO;UACLL,MAAM,CAACK,IAAD,CAAN;QACD;MACF,CAND;MAOAhB,YAAY,CAACe,WAAb,CAAyB,uBAAzB,EAAkD,UAACC,IAAD,EAAU;QAC1DL,MAAM,CAACK,IAAD,CAAN;MACD,CAFD;IAGD,CAfM,CAAP;EAgBD,CAjBD,MAiBO;IACL,OAAOd,0BAAA,CAAcC,kBAAd,CAAiCS,UAAjC,CAA4CN,KAA5C,CAAP;EACD;AACF,C;iCA/BGH,kB,gBAmCgB,UAACe,OAAD,EAAqC;EACvD,IAAIX,qBAAA,CAASC,EAAT,KAAgB,KAApB,EAA2B;IACzB,OAAO,IAAIC,OAAJ,CAAY,UAACC,OAAD,EAAUC,MAAV,EAAqB;MACtCT,0BAAA,CAAcC,kBAAd,CAAiCgB,UAAjC,CAA4CD,OAA5C;;MACAlB,YAAY,CAACe,WAAb,CAAyB,YAAzB,EAAuC,UAACC,IAAD,EAAU;QAC/C,IAAI,CAACA,IAAI,CAACC,OAAV,EAAmB;UACjBP,OAAO,CAACM,IAAD,CAAP;QACD,CAFD,MAEO;UACLL,MAAM,CAACK,IAAD,CAAN;QACD;MACF,CAND;MAOAhB,YAAY,CAACe,WAAb,CAAyB,uBAAzB,EAAkD,UAACC,IAAD,EAAU;QAC1DL,MAAM,CAACK,IAAD,CAAN;MACD,CAFD;IAGD,CAZM,CAAP;EAaD,CAdD,MAcO;IACL,OAAOd,0BAAA,CAAcC,kBAAd,CAAiCgB,UAAjC,CAA4CD,OAA5C,CAAP;EACD;AACF,C;eAGYf,kB"
 }
