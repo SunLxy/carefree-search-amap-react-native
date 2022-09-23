@@ -7,7 +7,7 @@
     "declaration": true,
     "jsx": "react-native",
     "lib": [
-      "es6"
+      "esnext"
     ],
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -17,7 +17,6 @@
     "noEmit": false,
     "target": "esnext",
     "module": "esnext",
-    "baseUrl": "."
   },
   "exclude": [
     "node_modules"

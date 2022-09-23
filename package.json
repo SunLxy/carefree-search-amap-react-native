@@ -17,7 +17,7 @@
     "carefree-search-amap-react-native.podspec"
   ],
   "scripts": {
-    "build": "tsbb build"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
