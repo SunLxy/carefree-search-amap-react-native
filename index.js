@@ -11,6 +11,7 @@ class CarefreeSearchAmap {
    * 经纬度转地址
    */
   static getAddress = (point) => {
+    console.log("45")
     if (Platform.OS === 'ios') {
       return new Promise((resolve, reject) => {
         NativeModules.CarefreeSearchAmap.getAddress(point.latitude, point.longitude);
@@ -28,6 +29,7 @@ class CarefreeSearchAmap {
       });
     }
     else {
+      console.log("222222")
       return NativeModules.CarefreeSearchAmap.getAddress(point);
     }
   };
@@ -35,6 +37,7 @@ class CarefreeSearchAmap {
    * 地址转经纬度
    */
   static getLatLong = (address) => {
+    console.log("11")
     if (Platform.OS === 'ios') {
       return new Promise((resolve, reject) => {
         NativeModules.CarefreeSearchAmap.getLatLong(address);
@@ -52,6 +55,7 @@ class CarefreeSearchAmap {
       });
     }
     else {
+      console.log("6666666")
       return NativeModules.CarefreeSearchAmap.getLatLong(address);
     }
   };
