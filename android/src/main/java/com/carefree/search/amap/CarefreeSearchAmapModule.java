@@ -73,7 +73,7 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
   public void getLatLong(String address, final Promise promise) {
     try {
       // 第一个参数表示地址，第二个参数表示查询城市010，中文或者中文全拼，citycode、adcode
-      GeocodeQuery query = new GeocodeQuery(address.trim(), "");
+      GeocodeQuery query = new GeocodeQuery(address, "");
       // 设置同步地理编码请求
       mGeocodeSearch.getFromLocationNameAsyn(query);
       mGeocodeSearch.setOnGeocodeSearchListener(
@@ -108,15 +108,18 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                   "longitude",
                   destPoint.getLatLonPoint().getLongitude()
                 );
+                map.putDouble("rCode", rCode);
                 promise.resolve(map);
               } else {
                 WritableMap tips = getTip(-1);
+                tips.putDouble("rCode", rCode);
                 // ToastUtil.show(mContext, "对不起，没有搜索到相关数据！");
-                promise.reject("-1", tips);
+                promise.resolve(tips);
               }
             } else {
               WritableMap tips = getTip(-2);
-              promise.reject("-2", tips);
+              tips.putDouble("rCode", rCode);
+              promise.resolve(tips);
               //   ToastUtil.show(mContext, "搜索失败,请检查网络连接！");
             }
           }
@@ -126,7 +129,7 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
       WritableMap tips = getTip(-3);
       tips.putString("errInfo", err.getMessage());
       tips.putDouble("errCode", -3);
-      promise.reject("-3", tips);
+      promise.resolve(tips);
     }
   }
 
@@ -188,14 +191,18 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 }
                 map.putString("towncode", location.getTowncode());
                 map.putString("township", location.getTownship());
+                map.putDouble("rCode", rCode);
+
                 promise.resolve(map);
               } else {
                 WritableMap tips = getTip(-1);
-                promise.reject("-1", tips);
+                tips.putDouble("rCode", rCode);
+                promise.resolve(tips);
               }
             } else {
               WritableMap tips = getTip(-2);
-              promise.reject("-2", tips);
+              tips.putDouble("rCode", rCode);
+              promise.resolve(tips);
             }
           }
 
@@ -210,7 +217,7 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
       WritableMap tips = getTip(-3);
       tips.putString("errInfo", err.getMessage());
       tips.putDouble("errCode", -3);
-      promise.reject("-3", tips);
+      promise.resolve(tips);
     }
   }
 }

@@ -38,7 +38,7 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)
     } @catch (NSException *error){
         NSLog( @"initSDK-->" );
         NSLog( @"Name: %@", error.name);
-        NSLog( @"Reason: %@", error.reason );
+        NSLog( @"Reason: %@", error.reason);
         reject([NSString stringWithFormat:@"%ld",(long)error.name], error.reason, error);
     }
     
@@ -57,7 +57,7 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 }
 
 - (void)onGeocodeSearchDone:(AMapGeocodeSearchRequest *)request response:(AMapGeocodeSearchResponse *)response{
-     NSLog( @"onGeocodeSearchDone-->" );
+    NSLog( @"onGeocodeSearchDone-->" );
     if (response.count == 0) {
         [self sendEventWithName: @"GetLatLong" body:@{
             @"errCode" : @(-1),
@@ -67,6 +67,7 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
     }else{
         AMapGeocode *locationItem = (AMapGeocode *)response.geocodes[0];
         [self sendEventWithName: @"GetLatLong" body:@{
+            @"errCode" : @(1000),
             @"longitude" : @(locationItem.location.longitude),
             @"latitude" : @(locationItem.location.latitude),
         }];
