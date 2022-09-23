@@ -1,10 +1,14 @@
 export interface Point {
+  /**错误码*/
+  errCode?: number | string
   /**纬度*/
   latitude: number
   /**经度*/
   longitude: number
 }
 export interface Address {
+  /**错误码*/
+  errCode?: number | string
   /**区（县）的编码*/
   adCode: string
   /**建筑物名称*/
