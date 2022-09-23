@@ -28,8 +28,11 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)
     @try{
         NSLog( @"initSDK-->" );
         [AMapServices sharedServices].apiKey = apiKey;
+        NSLog( @"initSDK-->1" );
         _search = [[AMapSearchAPI alloc] init];
+        NSLog( @"initSDK-->2" );
         _search.delegate = self;
+        NSLog( @"initSDK-->3" );
         _isStarted = YES;
         resolve(@(_isStarted));
     } @catch (NSException *error){

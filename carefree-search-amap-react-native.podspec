@@ -23,8 +23,8 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,c,cc,cpp,m,mm,swift}"
   s.requires_arc = true
 
-  s.dependency "React-Core"
-  s.dependency "AMapSearch", "9.2.0"
+  s.dependency "React"
+  s.dependency "AMapSearch", "9.4.0"
   # ...
   # s.dependency "..."
 end
