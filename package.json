@@ -3,22 +3,19 @@
   "title": "Carefree Search Amap React Native",
   "version": "1.0.8",
   "description": "TDOO",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "react-native": "lib/index",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "react-native": "index",
   "files": [
     "README.md",
     "android/src",
     "android/build.gradle",
     "android/README.md",
-    "src",
-    "lib",
+    "index.js",
+    "index.d.ts",
     "ios",
     "carefree-search-amap-react-native.podspec"
   ],
-  "scripts": {
-    "build": "tsc"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SunLxy/carefree-search-amap-react-native.git",
@@ -41,7 +38,6 @@
   "devDependencies": {
     "react": "^16.9.0",
     "react-native": "^0.61.5",
-    "@types/react-native": "^0.61.5",
-    "tsbb": "^3.7.7"
+    "@types/react-native": "^0.61.5"
   }
 }
