@@ -45,7 +45,7 @@ RCT_EXPORT_METHOD(initSDK: (NSString *)apiKey resolver: (RCTPromiseResolveBlock)
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-  return @[ @"GetLatLong",@"GetAddress" ];
+  return @[ @"GetLatLong",@"GetAddress",@"AddressOrLatLongError"];
 }
 
 RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
@@ -74,12 +74,11 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
 }
 
 
-RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
+RCT_EXPORT_METHOD(getAddress: (CGFloat *)latitude ,(CGFloat *)longitude)
 {
      NSLog( @"getAddress-->" );
     AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
-    regeo.location = [AMapGeoPoint locationWithLatitude:point.latitude
-                                              longitude:point.longitude];
+    regeo.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
     [_search AMapReGoecodeSearch:regeo];
 }
 
@@ -109,6 +108,15 @@ RCT_EXPORT_METHOD(getAddress: (AMapGeoPoint *)point)
             @"errInfo" : @"没有搜索到相关数据",
         }];
     }
+}
+
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error
+{
+    NSLog(@"Error: %@", error);
+    [self sendEventWithName: @"AddressOrLatLongError" body:@{
+        @"errCode" : @(-3),
+        @"errInfo" : error,
+    }];
 }
 
 /*! 
