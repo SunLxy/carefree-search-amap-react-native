@@ -18,7 +18,10 @@ import CarefreeSearchAmap from 'carefree-search-amap-react-native';
 
 const setApiKey =async ()=>{
   try{
-    const result = await CarefreeSearchAmap.initSDK("07976cdaf75c89e7a455f8dd3f3ec56e")
+    const result = await CarefreeSearchAmap.initSDK(Platform.select({
+      ios:'7847002b4f7fa42578df07d8cf9b0e41',
+      android: '07976cdaf75c89e7a455f8dd3f3ec56e', 
+    }))
     if(result){
       console.log("设置apiKey成功")
     }
