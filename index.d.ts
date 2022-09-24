@@ -1,12 +1,4 @@
-export interface Point {
-  /**错误码*/
-  errCode?: number | string
-  /**纬度*/
-  latitude: number
-  /**经度*/
-  longitude: number
-}
-export interface Address {
+interface CarefreeAddress {
   /**错误码*/
   errCode?: number | string
   /**区（县）的编码*/
@@ -35,7 +27,19 @@ export interface Address {
   streetNumber?: string
   /**门牌信息中的街道名称*/
   street?: string
+  /**纬度*/
+  latitude: number
+  /**经度*/
+  longitude: number
 }
+
+export interface Point {
+  /**纬度*/
+  latitude: number
+  /**经度*/
+  longitude: number
+}
+
 declare class CarefreeSearchAmap {
   /**
    * 设置apiKey
@@ -44,10 +48,10 @@ declare class CarefreeSearchAmap {
   /**
    * 经纬度转地址
    */
-  static getAddress: (point: Point) => Promise<Address>
+  static getAddress: (point: Point) => Promise<CarefreeAddress>
   /**
    * 地址转经纬度
    */
-  static getLatLong: (address: string) => Promise<Point>
+  static getLatLong: (address: string) => Promise<CarefreeAddress>
 }
 export default CarefreeSearchAmap
