@@ -2,11 +2,11 @@ import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
 
 const eventEmitter = new NativeEventEmitter(NativeModules.CarefreeSearchAmap);
 
-const handleData = async (result) => {
+const handleData = async (result, other = {}) => {
   if (result && [-3, "-3"].includes(result.errCode)) {
     return Promise.reject(result.errInfo)
   }
-  return Promise.resolve(result)
+  return Promise.resolve({ ...result, ...other })
 }
 
 class RNSearchAmap {
@@ -32,7 +32,7 @@ class RNSearchAmap {
       });
     }
     else {
-      return handleData(await NativeModules.CarefreeSearchAmap.getAddress(point));
+      return handleData(await NativeModules.CarefreeSearchAmap.getAddress(point), point);
     }
   };
   /**
