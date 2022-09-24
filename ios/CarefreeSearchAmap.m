@@ -86,6 +86,17 @@ RCT_EXPORT_METHOD(getLatLong:(NSString *) address)
             @"errCode" : @(1000),
             @"longitude" : @(locationItem.location.longitude),
             @"latitude" : @(locationItem.location.latitude),
+            @"address" : locationItem.formattedAddress,
+            @"adCode" : locationItem.adcode,
+            @"building" :locationItem.building,
+            @"city" : locationItem.city,
+            @"cityCode" : locationItem.citycode,
+            @"country" : locationItem.country,
+            @"district" : locationItem.district,
+            @"neighborhood" : locationItem.neighborhood,
+            @"province" : locationItem.province,
+            @"postcode" : locationItem.postcode,
+            @"level" : locationItem.level,
         }];
     }
 }

@@ -116,6 +116,18 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                   "longitude",
                   destPoint.getLatLonPoint().getLongitude()
                 );
+                map.putString("adCode", location.getAdCode());
+                map.putString("building", location.getBuilding());
+                map.putString("city", location.getCity());
+                map.putString("cityCode", location.getCityCode());
+                map.putString("country", location.getCountry());
+                map.putString("district", location.getDistrict());
+                map.putString("address", location.getFormatAddress());
+                map.putString("neighborhood", location.getNeighborhood());
+                map.putString("province", location.getProvince());
+                map.putString("postcode", location.getPostcode());
+                map.putString("level", location.getLevel());
+
                 map.putDouble("errCode", rCode);
                 promise.resolve(map);
               } else {

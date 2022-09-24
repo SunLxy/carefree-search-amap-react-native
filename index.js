@@ -24,7 +24,7 @@ class RNSearchAmap {
       return new Promise((resolve, reject) => {
         NativeModules.CarefreeSearchAmap.getAddress(point.latitude, point.longitude);
         eventEmitter.addListener('GetAddress', (info) => {
-          resolve(info);
+          resolve({ ...info, latitude: point.latitude, longitude: point.longitude });
         });
         eventEmitter.addListener('AddressOrLatLongError', (info) => {
           reject(info);
