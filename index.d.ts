@@ -1,7 +1,9 @@
 interface CarefreeAddress {
   /**错误码*/
   errCode?: number | string
-  /**区（县）的编码*/
+  /**错误信息*/
+  errInfo?: string
+  /**区域编码*/
   adCode: string
   /**建筑物名称*/
   building: string
@@ -11,6 +13,8 @@ interface CarefreeAddress {
   cityCode: string
   /**国家名称*/
   country: string
+  /**国家简码*/
+  postcode: string
   /**区（县）名称*/
   district: string
   /**地址*/
