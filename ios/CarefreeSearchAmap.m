@@ -99,7 +99,7 @@ RCT_EXPORT_METHOD(getAddress:(float)latitude typer:(float)longitude)
             AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
             regeo.location = [AMapGeoPoint locationWithLatitude:latitude longitude:longitude];
             regeo.radius = 10;
-            [_search AMapReGoecodeSearch:regeo]
+            [_search AMapReGoecodeSearch:regeo];
         }else{
             [self sendEventWithName: @"AddressOrLatLongError" body:@{
                 @"errCode" : @(-4),
