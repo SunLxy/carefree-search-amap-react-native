@@ -16,9 +16,6 @@ jobs:
       with:
         node-version: 14
 
-    - run: npm install 
-    - run: npm build 
-
     - name: Create Tag
       id: create_tag
       uses: jaywcjlove/create-tag-action@v1.3.12
