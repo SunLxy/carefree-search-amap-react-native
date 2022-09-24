@@ -41,3 +41,13 @@ import CarefreeSearchAmap from 'carefree-search-amap-react-native';
 CarefreeSearchAmap.getLatLong("北京天安门广场")
 
 ```
+
+### 错误码(errCode)
+
+|错误码|说明|
+|-----|----|
+| -1  | 没有搜索到相关数据   |
+| -2  | 搜索失败,请检查网络连接   |
+| -3  |  查询报错信息  |
+| -4  | 未设置apiKey   |
+| 1000  | 查询成功   |
