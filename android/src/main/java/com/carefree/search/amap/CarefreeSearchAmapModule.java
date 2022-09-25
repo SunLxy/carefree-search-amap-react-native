@@ -60,7 +60,8 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
     }
     if (type == -2) {
       map.putDouble("errCode", -2);
-      map.putString("errInfo", "搜索失败,请检查网络连接");
+      // map.putString("errInfo", "搜索失败,请检查网络连接");
+      map.putString("errInfo", "搜索失败");
     }
     if (type == -4) {
       map.putDouble("errCode", -4);
@@ -127,18 +128,18 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 map.putString("province", location.getProvince());
                 map.putString("postcode", location.getPostcode());
                 map.putString("level", location.getLevel());
-
                 map.putDouble("errCode", rCode);
+                map.putDouble("rCode", rCode);
                 promise.resolve(map);
               } else {
                 WritableMap tips = getTip(-1);
-                tips.putDouble("errCode", rCode);
+                tips.putDouble("rCode", rCode);
                 // ToastUtil.show(mContext, "对不起，没有搜索到相关数据！");
                 promise.resolve(tips);
               }
             } else {
               WritableMap tips = getTip(-2);
-              tips.putDouble("errCode", rCode);
+              tips.putDouble("rCode", rCode);
               promise.resolve(tips);
               //   ToastUtil.show(mContext, "搜索失败,请检查网络连接！");
             }
@@ -216,16 +217,17 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                 map.putString("towncode", location.getTowncode());
                 map.putString("township", location.getTownship());
                 map.putDouble("errCode", rCode);
+                map.putDouble("rCode", rCode);
 
                 promise.resolve(map);
               } else {
                 WritableMap tips = getTip(-1);
-                tips.putDouble("errCode", rCode);
+                tips.putDouble("rCode", rCode);
                 promise.resolve(tips);
               }
             } else {
               WritableMap tips = getTip(-2);
-              tips.putDouble("errCode", rCode);
+              tips.putDouble("rCode", rCode);
               promise.resolve(tips);
             }
           }
