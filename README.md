@@ -15,6 +15,7 @@ npm install carefree-search-amap-react-native
 
 ```js
 import CarefreeSearchAmap from 'carefree-search-amap-react-native';
+import { Platform } from "react-native"
 
 const setApiKey =async ()=>{
   try{
@@ -34,7 +35,7 @@ const setApiKey =async ()=>{
 
 **getAddress**
 
-经纬度转地址
+经纬度===>地址
 
 ```js
 import CarefreeSearchAmap from 'carefree-search-amap-react-native';
@@ -56,7 +57,7 @@ const getAddress =async ()=>{
 
 **getLatLong**
 
-地址转经纬度
+地址===>经纬度
 
 ```js
 import CarefreeSearchAmap from 'carefree-search-amap-react-native';
@@ -105,6 +106,6 @@ const getLatLong =async ()=>{
 |-----|----|
 | -1  | 没有搜索到相关数据   |
 | -2  | 搜索失败,请检查网络连接   |
-| -3  |  查询报错信息  |
+| -3  |  查询返回结果进行转换数据的报错信息  |
 | -4  | 未设置apiKey   |
 | 1000  | 查询成功   |
