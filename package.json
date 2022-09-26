@@ -1,7 +1,7 @@
 {
   "name": "carefree-search-amap-react-native",
   "title": "Carefree Search Amap React Native",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "React Native 高德地图搜索模块，支持 Android/iOS。进行地址和经纬度互转",
   "main": "index.js",
   "types": "index.d.ts",
