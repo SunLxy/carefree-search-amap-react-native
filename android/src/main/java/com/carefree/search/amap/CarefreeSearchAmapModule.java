@@ -117,17 +117,17 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
                   "longitude",
                   destPoint.getLatLonPoint().getLongitude()
                 );
-                map.putString("adCode", location.getAdCode());
-                map.putString("building", location.getBuilding());
-                map.putString("city", location.getCity());
-                map.putString("cityCode", location.getCityCode());
-                map.putString("country", location.getCountry());
-                map.putString("district", location.getDistrict());
-                map.putString("address", location.getFormatAddress());
-                map.putString("neighborhood", location.getNeighborhood());
-                map.putString("province", location.getProvince());
-                map.putString("postcode", location.getPostcode());
-                map.putString("level", location.getLevel());
+                map.putString("adCode", destPoint.getAdCode());
+                map.putString("building", destPoint.getBuilding());
+                map.putString("city", destPoint.getCity());
+                map.putString("cityCode", destPoint.getCityCode());
+                map.putString("country", destPoint.getCountry());
+                map.putString("district", destPoint.getDistrict());
+                map.putString("address", destPoint.getFormatAddress());
+                map.putString("neighborhood", destPoint.getNeighborhood());
+                map.putString("province", destPoint.getProvince());
+                map.putString("postcode", destPoint.getPostcode());
+                map.putString("level", destPoint.getLevel());
                 map.putDouble("errCode", rCode);
                 map.putDouble("rCode", rCode);
                 promise.resolve(map);
