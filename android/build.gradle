@@ -74,5 +74,5 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
     // 加载高德搜索sdk
-    implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:search:9.4.0'
 }
