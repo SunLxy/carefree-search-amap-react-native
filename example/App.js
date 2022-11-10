@@ -35,6 +35,7 @@ export default class App extends Component {
           android: '07976cdaf75c89e7a455f8dd3f3ec56e',
         }),
       );
+      console.log('result', result);
       if (result) {
         this.setState({
           isLoading: result,

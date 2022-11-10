@@ -82,6 +82,7 @@ const getLatLong =async ()=>{
 |字段|类型|说明|
 |---|---|---|
 |errCode|`number`|错误码|
+|rCode(android)|`number`|sdk错误码|
 |errInfo|`string`|错误信息|
 |latitude|`number`|纬度|
 |longitude|`number`|经度|
@@ -99,6 +100,7 @@ const getLatLong =async ()=>{
 |towncode|`string`|乡镇街道编码|
 |streetNumber|`string`|门牌号码|
 |street|`string`|门牌信息中的街道名称|
+|sdkMessage(android)|`{rCode:number,errInfo:string}`|rCode对应的信息|
 
 ### 错误码(errCode)
 
