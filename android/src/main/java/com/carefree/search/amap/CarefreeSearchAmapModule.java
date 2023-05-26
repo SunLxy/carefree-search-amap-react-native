@@ -241,50 +241,57 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
            */
           @Override
           public void onGeocodeSearched(GeocodeResult result, int rCode) {
-            if (rCode == 1000) {
-              if (
-                result != null &&
-                result.getGeocodeAddressList() != null &&
-                result.getGeocodeAddressList().size() > 0
-              ) {
-                GeocodeAddress destPoint = result
-                  .getGeocodeAddressList()
-                  .get(0);
-                WritableMap map = Arguments.createMap();
-                map.putDouble(
-                  "latitude",
-                  destPoint.getLatLonPoint().getLatitude()
-                );
-                map.putDouble(
-                  "longitude",
-                  destPoint.getLatLonPoint().getLongitude()
-                );
-                map.putString("adCode", destPoint.getAdcode());
-                map.putString("building", destPoint.getBuilding());
-                map.putString("city", destPoint.getCity());
-                // map.putString("cityCode", destPoint.getCitycode());
-                map.putString("country", destPoint.getCountry());
-                map.putString("district", destPoint.getDistrict());
-                map.putString("address", destPoint.getFormatAddress());
-                map.putString("neighborhood", destPoint.getNeighborhood());
-                map.putString("province", destPoint.getProvince());
-                map.putString("postcode", destPoint.getPostcode());
-                map.putString("level", destPoint.getLevel());
-                map.putDouble("errCode", rCode);
-                map.putDouble("rCode", rCode);
-                map.putMap("sdkMessage", getSDKTip(rCode));
-                promise.resolve(map);
+            try{
+              if (rCode == 1000) {
+                if (
+                  result != null &&
+                  result.getGeocodeAddressList() != null &&
+                  result.getGeocodeAddressList().size() > 0
+                ) {
+                  GeocodeAddress destPoint = result
+                    .getGeocodeAddressList()
+                    .get(0);
+                  WritableMap map = Arguments.createMap();
+                  map.putDouble(
+                    "latitude",
+                    destPoint.getLatLonPoint().getLatitude()
+                  );
+                  map.putDouble(
+                    "longitude",
+                    destPoint.getLatLonPoint().getLongitude()
+                  );
+                  map.putString("adCode", destPoint.getAdcode());
+                  map.putString("building", destPoint.getBuilding());
+                  map.putString("city", destPoint.getCity());
+                  // map.putString("cityCode", destPoint.getCitycode());
+                  map.putString("country", destPoint.getCountry());
+                  map.putString("district", destPoint.getDistrict());
+                  map.putString("address", destPoint.getFormatAddress());
+                  map.putString("neighborhood", destPoint.getNeighborhood());
+                  map.putString("province", destPoint.getProvince());
+                  map.putString("postcode", destPoint.getPostcode());
+                  map.putString("level", destPoint.getLevel());
+                  map.putDouble("errCode", rCode);
+                  map.putDouble("rCode", rCode);
+                  map.putMap("sdkMessage", getSDKTip(rCode));
+                  promise.resolve(map);
+                } else {
+                  WritableMap tips = getTip(-1);
+                  tips.putDouble("rCode", rCode);
+                  tips.putMap("sdkMessage", getSDKTip(rCode));
+                  promise.resolve(tips);
+                }
               } else {
-                WritableMap tips = getTip(-1);
+                WritableMap tips = getTip(-2);
                 tips.putDouble("rCode", rCode);
                 tips.putMap("sdkMessage", getSDKTip(rCode));
                 promise.resolve(tips);
               }
-            } else {
-              WritableMap tips = getTip(-2);
-              tips.putDouble("rCode", rCode);
-              tips.putMap("sdkMessage", getSDKTip(rCode));
-              promise.resolve(tips);
+            }catch(Exception err){
+                WritableMap tips = getTip(-3);
+                tips.putString("errInfo", err.getMessage());
+                tips.putDouble("errCode", -3);
+                promise.resolve(tips);
             }
           }
         }
@@ -330,51 +337,59 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
            */
           @Override
           public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
-            if (rCode == 1000) {
-              if (
-                result != null &&
-                result.getRegeocodeAddress() != null &&
-                result.getRegeocodeAddress().getFormatAddress() != null
-              ) {
-                RegeocodeAddress location = result.getRegeocodeAddress();
-                WritableMap map = Arguments.createMap();
-                map.putString("adCode", location.getAdCode());
-                map.putString("building", location.getBuilding());
-                map.putString("city", location.getCity());
-                map.putString("cityCode", location.getCityCode());
-                map.putString("country", location.getCountry());
-                map.putString("district", location.getDistrict());
-                map.putString("address", location.getFormatAddress());
-                map.putString("neighborhood", location.getNeighborhood());
-                map.putString("province", location.getProvince());
-                if (location.getStreetNumber() != null) {
-                  map.putString(
-                    "streetNumber",
-                    location.getStreetNumber().getNumber()
-                  );
-                  map.putString(
-                    "street",
-                    location.getStreetNumber().getStreet()
-                  );
+            try{
+              if (rCode == 1000) {
+                if (
+                  result != null &&
+                  result.getRegeocodeAddress() != null &&
+                  result.getRegeocodeAddress().getFormatAddress() != null
+                ) {
+                  RegeocodeAddress location = result.getRegeocodeAddress();
+                  WritableMap map = Arguments.createMap();
+                  map.putString("adCode", location.getAdCode());
+                  map.putString("building", location.getBuilding());
+                  map.putString("city", location.getCity());
+                  map.putString("cityCode", location.getCityCode());
+                  map.putString("country", location.getCountry());
+                  map.putString("district", location.getDistrict());
+                  map.putString("address", location.getFormatAddress());
+                  map.putString("neighborhood", location.getNeighborhood());
+                  map.putString("province", location.getProvince());
+                  if (location.getStreetNumber() != null) {
+                    map.putString(
+                      "streetNumber",
+                      location.getStreetNumber().getNumber()
+                    );
+                    map.putString(
+                      "street",
+                      location.getStreetNumber().getStreet()
+                    );
+                  }
+                  map.putString("towncode", location.getTowncode());
+                  map.putString("township", location.getTownship());
+                  map.putDouble("errCode", rCode);
+                  map.putDouble("rCode", rCode);
+                  map.putMap("sdkMessage", getSDKTip(rCode));
+                  promise.resolve(map);
+                } else {
+                  WritableMap tips = getTip(-1);
+                  tips.putDouble("rCode", rCode);
+                  tips.putMap("sdkMessage", getSDKTip(rCode));
+                  promise.resolve(tips);
                 }
-                map.putString("towncode", location.getTowncode());
-                map.putString("township", location.getTownship());
-                map.putDouble("errCode", rCode);
-                map.putDouble("rCode", rCode);
-                map.putMap("sdkMessage", getSDKTip(rCode));
-                promise.resolve(map);
               } else {
-                WritableMap tips = getTip(-1);
+                WritableMap tips = getTip(-2);
                 tips.putDouble("rCode", rCode);
                 tips.putMap("sdkMessage", getSDKTip(rCode));
                 promise.resolve(tips);
               }
-            } else {
-              WritableMap tips = getTip(-2);
-              tips.putDouble("rCode", rCode);
-              tips.putMap("sdkMessage", getSDKTip(rCode));
-              promise.resolve(tips);
+            }catch(Exception err){
+                WritableMap tips = getTip(-3);
+                tips.putString("errInfo", err.getMessage());
+                tips.putDouble("errCode", -3);
+                promise.resolve(tips);
             }
+            
           }
 
           /**
