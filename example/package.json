@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "carefree-search-amap-react-native": "1.0.11",
+    "carefree-search-amap-react-native": "1.1.1",
     "react": "18.1.0",
     "react-native": "0.70.1"
   },
