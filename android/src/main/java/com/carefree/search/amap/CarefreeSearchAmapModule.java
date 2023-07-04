@@ -42,7 +42,7 @@ public class CarefreeSearchAmapModule extends ReactContextBaseJavaModule {
       mGeocodeSearch = new GeocodeSearch(reactContext.getApplicationContext());
       promise.resolve(true);
     } catch (Exception err) {
-      promise.reject(err.getMessage());
+      promise.resolve(err.getMessage());
     }
   }
 

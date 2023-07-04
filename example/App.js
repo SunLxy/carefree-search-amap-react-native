@@ -32,7 +32,7 @@ export default class App extends Component {
       const result = await CarefreeSearchAmap.initSDK(
         Platform.select({
           ios: '7847002b4f7fa42578df07d8cf9b0e41',
-          android: '07976cdaf75c89e7a455f8dd3f3ec56e',
+          android: 'bf2300da74937053d31bae65e0367e14',
         }),
       );
       console.log('result', result);
@@ -49,7 +49,11 @@ export default class App extends Component {
   async getInfo(address) {
     const result2 = await CarefreeSearchAmap.getLatLong(address);
     console.log('result2', result2);
-    const result3 = await CarefreeSearchAmap.getAddress(result2);
+    // 31.200345847881664 121.26299297628496
+    const result3 = await CarefreeSearchAmap.getAddress({
+      latitude: 31.200345847881664,
+      longitude: 121.26299297628496,
+    });
     console.log('result3', result3);
     this.setState({
       location: JSON.stringify(result2),
