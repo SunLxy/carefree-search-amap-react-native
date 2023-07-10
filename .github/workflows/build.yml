@@ -21,7 +21,7 @@ jobs:
       uses: jaywcjlove/create-tag-action@v1.3.12
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        package-path: ./package.json
+        package-path: ./core/package.json
 
     - name: Generate changelog
       id: changelog
@@ -51,5 +51,5 @@ jobs:
       uses: SunLxy/npm-publish@main
       with:
         token: ${{ secrets.NPM_TOKEN }}
-        package: ./package.json
+        package: ./core/package.json
 

@@ -1,0 +1,43 @@
+{
+  "name": "carefree-search-amap-react-native",
+  "title": "Carefree Search Amap React Native",
+  "version": "1.1.1",
+  "description": "React Native 高德地图搜索模块，支持 Android/iOS。进行地址和经纬度互转",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "react-native": "index",
+  "files": [
+    "README.md",
+    "android/src",
+    "android/build.gradle",
+    "android/README.md",
+    "index.js",
+    "index.d.ts",
+    "ios",
+    "carefree-search-amap-react-native.podspec"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunLxy/carefree-search-amap-react-native.git",
+    "baseUrl": "https://github.com/SunLxy/carefree-search-amap-react-native"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "SunLxy",
+    "email": "1011771396@qq.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": ">=16.8.1",
+    "react-native": ">=0.60.0-rc.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.72.1",
+    "@types/react-native": "^0.72.2"
+  }
+}
