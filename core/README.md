@@ -23,7 +23,7 @@ const setApiKey =async ()=>{
       ios:'7847002b4f7fa42578df07d8cf9b0e41',
       android: '07976cdaf75c89e7a455f8dd3f3ec56e', 
     }))
-    if(result){
+    if(result === true){
       console.log("设置apiKey成功")
     }
   }catch(err){

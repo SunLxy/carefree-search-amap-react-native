@@ -35,7 +35,7 @@ function App(): JSX.Element {
         }),
       );
       console.log('result', result);
-      if (result) {
+      if (result === true) {
         getInfo(state.address);
       }
     } catch (err) {
