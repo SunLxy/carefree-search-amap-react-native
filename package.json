@@ -11,6 +11,9 @@
       "example/**"
     ]
   },
+  "scripts": {
+    "version": "lerna version --exact --force-publish --no-push --no-git-tag-version"
+  },
   "devDependencies": {
     "lerna": "^7.0.1"
   }
