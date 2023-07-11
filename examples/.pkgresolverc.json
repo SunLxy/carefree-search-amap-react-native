@@ -1,0 +1,4 @@
+{
+  "react-native-app-shared": "../shared/src/index.tsx",
+  "carefree-search-amap-react-native": "../core/index.js"
+}
